@@ -1,0 +1,6 @@
+_target_: weather_ml.models.linear.LinearBaseline
+n_channels: 2
+spatial_shape:
+  - 32
+  - 64
+lr: ${training.lr}

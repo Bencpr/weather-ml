@@ -1,0 +1,6 @@
+data_dir: data
+output_dir: outputs
+num_workers: 4
+accelerator: auto
+devices: 1
+precision: 32-true

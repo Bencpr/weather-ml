@@ -1,0 +1,6 @@
+max_epochs: 10
+batch_size: 32
+lr: 1.0e-3
+gradient_clip_val: 1.0
+val_check_interval: 1.0
+early_stopping_patience: 5

@@ -1,0 +1,6 @@
+defaults:
+  - data: era5_sample
+  - model: linear_baseline
+  - training: default
+  - hardware: local
+  - _self_
