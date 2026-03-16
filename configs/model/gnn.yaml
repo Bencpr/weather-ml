@@ -1,0 +1,37 @@
+_target_: weather_ml.models.gnn.GraphWeatherModel
+
+# Number of atmospheric variables — must match dataset.
+# WeatherBenchDataModule default: z500 + t850 = 2.
+n_vars: 2
+
+# Node embedding dimension in the processor.
+# Anemoi production models use 512–1024. 128 is fine for the 32×64 practice grid.
+hidden_dim: 128
+
+# Edge feature dimension. Smaller than hidden_dim — edges carry geometric
+# information (distance), not atmospheric state.
+edge_dim: 32
+
+# Number of GraphConvLayer steps (= message-passing rounds).
+# With k=9 and n_layers=6, information travels 6 graph hops per forward pass.
+# On a 32×64 grid, 1 hop ≈ 5.6° ≈ 620 km → 6 hops ≈ 3700 km (synoptic scale).
+n_layers: 6
+
+# MLP hidden width = hidden_dim × mlp_ratio.
+mlp_ratio: 2
+
+# Grid shape — must match WeatherBenchDataset.spatial_shape.
+spatial_shape:
+  - 32   # H latitudes
+  - 64   # W longitudes
+
+# KNN connectivity. 9 neighbours is a practical default:
+#   - enough to cover the immediate neighbourhood on a regular grid
+#   - cheap enough for CPU dev runs
+# Anemoi uses CutOff edges (radius-based) rather than fixed K, but KNN
+# is simpler and nearly equivalent on uniform grids.
+k: 9
+
+# Inherit from training config (Hydra interpolation)
+lr: ${training.lr}
+weight_decay: 1.0e-5

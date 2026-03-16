@@ -72,13 +72,9 @@ class SimpleUNet(L.LightningModule):
         # Latitude weights
         H = spatial_shape[0]
         if lat_weights is not None:
-            self.register_buffer(
-                "lat_weights", torch.from_numpy(lat_weights).float()
-            )
+            self.register_buffer("lat_weights", torch.from_numpy(lat_weights).float())
         else:
-            self.register_buffer(
-                "lat_weights", torch.ones(H, dtype=torch.float32)
-            )
+            self.register_buffer("lat_weights", torch.ones(H, dtype=torch.float32))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Encoder path

@@ -1,5 +1,5 @@
 defaults:
-  - data: era5_sample
+  - data: era5_sample_dm
   - model: linear_baseline
   - training: default
   - hardware: local

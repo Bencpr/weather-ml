@@ -16,14 +16,21 @@ def synthetic_ds():
     n_lat = 32
     n_lon = 64
     import pandas as pd
+
     times = pd.date_range("2020-01-01", periods=n_times, freq="6h").values
     lats = np.linspace(90, -90, n_lat)
     lons = np.linspace(0, 354.375, n_lon)
 
     ds = xr.Dataset(
         {
-            "z": (["time", "lat", "lon"], np.random.randn(n_times, n_lat, n_lon).astype(np.float32)),
-            "t": (["time", "lat", "lon"], np.random.randn(n_times, n_lat, n_lon).astype(np.float32) * 10 + 250),
+            "z": (
+                ["time", "lat", "lon"],
+                np.random.randn(n_times, n_lat, n_lon).astype(np.float32),
+            ),
+            "t": (
+                ["time", "lat", "lon"],
+                np.random.randn(n_times, n_lat, n_lon).astype(np.float32) * 10 + 250,
+            ),
         },
         coords={"time": times, "lat": lats, "lon": lons},
     )

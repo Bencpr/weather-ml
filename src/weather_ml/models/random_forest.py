@@ -19,7 +19,9 @@ class RandomForestBaseline:
         rmse = model.evaluate(test_dataset)
     """
 
-    def __init__(self, n_estimators: int = 50, max_depth: int | None = 10, n_jobs: int = -1):
+    def __init__(
+        self, n_estimators: int = 50, max_depth: int | None = 10, n_jobs: int = -1
+    ):
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.n_jobs = n_jobs
@@ -47,7 +49,9 @@ class RandomForestBaseline:
 
         # Subsample for tractability
         if len(X_flat) > max_samples:
-            idx = np.random.default_rng(42).choice(len(X_flat), max_samples, replace=False)
+            idx = np.random.default_rng(42).choice(
+                len(X_flat), max_samples, replace=False
+            )
             X_flat, Y_flat = X_flat[idx], Y_flat[idx]
 
         self.rf = RandomForestRegressor(
@@ -66,7 +70,9 @@ class RandomForestBaseline:
         y_flat = self.rf.predict(x_flat)  # (B*H*W, C)
         return y_flat.reshape(B, H, W, C).transpose(0, 3, 1, 2)
 
-    def evaluate(self, dataset, lat_weights: np.ndarray | None = None) -> dict[str, float]:
+    def evaluate(
+        self, dataset, lat_weights: np.ndarray | None = None
+    ) -> dict[str, float]:
         """Compute RMSE (optionally latitude-weighted) over a dataset."""
         xs, ys = [], []
         for i in range(len(dataset)):

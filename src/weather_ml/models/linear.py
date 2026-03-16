@@ -25,13 +25,17 @@ class LinearBaseline(L.LightningModule):
         self.save_hyperparameters(ignore=["lat_weights"])
         H, W = spatial_shape
         # Independent linear map per grid point
-        self.weight = nn.Parameter(torch.eye(n_channels).unsqueeze(-1).unsqueeze(-1).expand(-1, -1, H, W).clone())
+        self.weight = nn.Parameter(
+            torch.eye(n_channels)
+            .unsqueeze(-1)
+            .unsqueeze(-1)
+            .expand(-1, -1, H, W)
+            .clone()
+        )
         self.bias = nn.Parameter(torch.zeros(n_channels, H, W))
 
         if lat_weights is not None:
-            self.register_buffer(
-                "lat_weights", torch.from_numpy(lat_weights).float()
-            )
+            self.register_buffer("lat_weights", torch.from_numpy(lat_weights).float())
         else:
             self.register_buffer(
                 "lat_weights",

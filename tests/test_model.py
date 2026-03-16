@@ -117,8 +117,7 @@ class TestRandomForestBaseline:
         class _DS:
             def __init__(self):
                 self.data = [
-                    (torch.randn(2, 8, 16), torch.randn(2, 8, 16))
-                    for _ in range(20)
+                    (torch.randn(2, 8, 16), torch.randn(2, 8, 16)) for _ in range(20)
                 ]
 
             def __len__(self):
